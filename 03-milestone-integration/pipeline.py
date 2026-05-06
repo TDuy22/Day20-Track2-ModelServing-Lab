@@ -13,7 +13,11 @@ from typing import Iterable
 
 import httpx
 
-LLAMA_SERVER_BASE = "http://localhost:8080/v1"
+# Config block: swap these values when N16-N19 are available.
+VECTOR_STORE_URL = "stub://in-memory-toy-docs"
+FEAST_REPO_PATH = "stub://not-configured"
+LAKEHOUSE_TABLE = "stub://toy-docs"
+LLAMA_SERVER_BASE = "http://localhost:8081/v1"
 SYSTEM_PROMPT = (
     "You are a serving-engineering tutor. Answer using only the documents provided. "
     "If the documents don't contain the answer, say so."
@@ -86,6 +90,10 @@ def answer(query: str) -> dict:
     t_total = time.perf_counter()
 
     t = time.perf_counter()
+    # STUB: no embedding model yet; retrieve() uses keyword overlap directly.
+    t_embed_ms = (time.perf_counter() - t) * 1000.0
+
+    t = time.perf_counter()
     docs = retrieve(query, k=3)
     t_retrieve_ms = (time.perf_counter() - t) * 1000.0
 
@@ -98,6 +106,7 @@ def answer(query: str) -> dict:
         "answer": text,
         "contexts": [{"id": d.id, "score": d.score} for d in docs],
         "timings_ms": {
+            "embed": round(t_embed_ms, 1),
             "retrieve": round(t_retrieve_ms, 1),
             "llm": round(t_llm_ms, 1),
             "total": round((time.perf_counter() - t_total) * 1000.0, 1),

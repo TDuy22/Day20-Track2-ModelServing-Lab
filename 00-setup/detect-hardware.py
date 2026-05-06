@@ -13,6 +13,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import ctypes
 from pathlib import Path
 
 
@@ -61,6 +62,21 @@ def detect_cpu() -> dict:
                 elif line.startswith("NumberOfCores="):
                     val = line.split("=", 1)[1].strip()
                     info["cores_physical"] = int(val) if val.isdigit() else None
+        if not info.get("model") or info.get("model") == "unknown":
+            try:
+                import winreg
+
+                with winreg.OpenKey(
+                    winreg.HKEY_LOCAL_MACHINE,
+                    r"HARDWARE\DESCRIPTION\System\CentralProcessor\0",
+                ) as key:
+                    info["model"] = winreg.QueryValueEx(key, "ProcessorNameString")[0].strip()
+            except OSError:
+                pass
+        if "6600H" in info.get("model", "") and info.get("cores_logical") == 12:
+            info["cores_physical"] = 6
+            info["avx2"] = True
+            info["avx512"] = False
     info.setdefault("model", "unknown")
     info.setdefault("cores_physical", info["cores_logical"])
     return info
@@ -80,6 +96,24 @@ def detect_ram_gb() -> float:
         except OSError:
             return 0.0
     if sys_plat == "win32":
+        class MEMORYSTATUSEX(ctypes.Structure):
+            _fields_ = [
+                ("dwLength", ctypes.c_ulong),
+                ("dwMemoryLoad", ctypes.c_ulong),
+                ("ullTotalPhys", ctypes.c_ulonglong),
+                ("ullAvailPhys", ctypes.c_ulonglong),
+                ("ullTotalPageFile", ctypes.c_ulonglong),
+                ("ullAvailPageFile", ctypes.c_ulonglong),
+                ("ullTotalVirtual", ctypes.c_ulonglong),
+                ("ullAvailVirtual", ctypes.c_ulonglong),
+                ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+            ]
+
+        status = MEMORYSTATUSEX()
+        status.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
+        if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
+            return round(status.ullTotalPhys / 1024**3, 1)
+
         rc, out = run(["wmic", "computersystem", "get", "TotalPhysicalMemory", "/format:value"])
         for line in out.splitlines():
             if line.startswith("TotalPhysicalMemory="):
@@ -170,11 +204,11 @@ def recommend(cpu: dict, ram: float, gpu: dict, docker: dict) -> dict:
     if backends["apple_metal"]:
         paths.append("BONUS-mlx-macos")
 
-    if ram >= 32:
+    if ram >= 31:
         model = "Qwen2.5-7B-Instruct (Q4_K_M)"
-    elif ram >= 16:
+    elif ram >= 15:
         model = "Llama-3.2-3B-Instruct (Q4_K_M)"
-    elif ram >= 8:
+    elif ram >= 7.5:
         model = "Qwen2.5-1.5B-Instruct (Q4_K_M)"
     else:
         model = "TinyLlama-1.1B (Q4_K_M)"
@@ -188,6 +222,9 @@ def recommend(cpu: dict, ram: float, gpu: dict, docker: dict) -> dict:
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
     cpu = detect_cpu()
     ram = detect_ram_gb()
     gpu = detect_gpu()

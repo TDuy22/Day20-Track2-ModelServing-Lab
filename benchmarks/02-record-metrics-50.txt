@@ -1,0 +1,37 @@
+==> Recording http://127.0.0.1:8081/metrics for 70s, every 2.0s
+   t=1778083960  reqs_proc=0  deferred=0  kv_ratio=0.00  tok_pred=8222
+   t=1778083962  reqs_proc=2  deferred=0  kv_ratio=0.00  tok_pred=8222
+   t=1778083964  reqs_proc=4  deferred=1  kv_ratio=0.00  tok_pred=8302
+   t=1778083966  reqs_proc=4  deferred=5  kv_ratio=0.00  tok_pred=8632
+   t=1778083969  reqs_proc=4  deferred=9  kv_ratio=0.00  tok_pred=8913
+   t=1778083971  reqs_proc=4  deferred=12  kv_ratio=0.00  tok_pred=9296
+   t=1778083973  reqs_proc=4  deferred=15  kv_ratio=0.00  tok_pred=9616
+   t=1778083975  reqs_proc=4  deferred=20  kv_ratio=0.00  tok_pred=9856
+   t=1778083977  reqs_proc=4  deferred=25  kv_ratio=0.00  tok_pred=10121
+   t=1778083979  reqs_proc=4  deferred=29  kv_ratio=0.00  tok_pred=10426
+   t=1778083981  reqs_proc=4  deferred=34  kv_ratio=0.00  tok_pred=10641
+   t=1778083983  reqs_proc=4  deferred=36  kv_ratio=0.00  tok_pred=11055
+   t=1778083985  reqs_proc=4  deferred=39  kv_ratio=0.00  tok_pred=11295
+   t=1778083987  reqs_proc=4  deferred=43  kv_ratio=0.00  tok_pred=11695
+   t=1778083989  reqs_proc=4  deferred=42  kv_ratio=0.00  tok_pred=12009
+   t=1778083991  reqs_proc=4  deferred=44  kv_ratio=0.00  tok_pred=12294
+   t=1778083993  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=12574
+   t=1778083995  reqs_proc=4  deferred=46  kv_ratio=0.00  tok_pred=12795
+   t=1778083997  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=13077
+   t=1778083999  reqs_proc=4  deferred=44  kv_ratio=0.00  tok_pred=13489
+   t=1778084001  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=13680
+   t=1778084003  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=14038
+   t=1778084006  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=14278
+   t=1778084008  reqs_proc=4  deferred=44  kv_ratio=0.00  tok_pred=14661
+   t=1778084010  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=14901
+   t=1778084012  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=15141
+   t=1778084014  reqs_proc=4  deferred=46  kv_ratio=0.00  tok_pred=15401
+   t=1778084016  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=15801
+   t=1778084018  reqs_proc=4  deferred=43  kv_ratio=0.00  tok_pred=16173
+   t=1778084020  reqs_proc=4  deferred=43  kv_ratio=0.00  tok_pred=16386
+   t=1778084022  reqs_proc=4  deferred=45  kv_ratio=0.00  tok_pred=16603
+   t=1778084024  reqs_proc=4  deferred=41  kv_ratio=0.00  tok_pred=16983
+   t=1778084026  reqs_proc=4  deferred=37  kv_ratio=0.00  tok_pred=17280
+   t=1778084028  reqs_proc=4  deferred=34  kv_ratio=0.00  tok_pred=17600
+
+==> Wrote benchmarks\02-server-metrics.csv (34 samples)

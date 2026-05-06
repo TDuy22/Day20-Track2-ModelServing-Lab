@@ -3,7 +3,7 @@
 80% short prompts (chat-style), 20% long prompts (RAG-style with a fake context).
 Run with:
     locust -f 02-llama-cpp-server/load-test.py --headless \
-        -u 10 -r 1 -t 1m --host http://localhost:8080
+        -u 10 -r 1 -t 1m --host http://localhost:8081
 """
 from __future__ import annotations
 

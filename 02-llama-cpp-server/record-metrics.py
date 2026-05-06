@@ -54,7 +54,7 @@ def scrape(url: str) -> dict[str, float]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url", default="http://localhost:8080/metrics")
+    parser.add_argument("--url", default="http://localhost:8081/metrics")
     parser.add_argument("--duration", type=int, default=60, help="seconds to record")
     parser.add_argument("--interval", type=float, default=2.0, help="seconds between scrapes")
     parser.add_argument("--out", default="benchmarks/02-server-metrics.csv")

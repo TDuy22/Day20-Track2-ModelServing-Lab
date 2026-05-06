@@ -1,0 +1,14 @@
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):
+  Device 0: NVIDIA GeForce RTX 3050 Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB
+load_backend: loaded CUDA backend from D:\tmp\day20-llama.cpp\build\bin\Release\ggml-cuda.dll
+load_backend: loaded RPC backend from D:\tmp\day20-llama.cpp\build\bin\Release\ggml-rpc.dll
+load_backend: loaded CPU backend from D:\tmp\day20-llama.cpp\build\bin\Release\ggml-cpu-haswell.dll
+build_info: b9041-f08f20a0e
+system_info: n_threads = 6 (n_threads_batch = 6) / 12 | CUDA : ARCHS = 500,610,700,750,800,860,890 | USE_GRAPHS = 1 | PEER_MAX_BATCH_SIZE = 128 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+Running without SSL
+init: using 11 threads for HTTP server
+start: binding port with default address family
+start: couldn't bind HTTP server socket, hostname: 127.0.0.1, port: 8080
